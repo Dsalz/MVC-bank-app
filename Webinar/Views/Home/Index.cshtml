@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+
+<div class="row">
+    <div class="col-md-6">
+        <a class="btn btn-info btn-block max" href="#"><span class="glyphicon glyphicon-bell"></span> Balance</a>
+        <a class="btn btn-info btn-block max" href="#"><span class="glyphicon glyphicon-print"></span> Withdraw</a>
+        <a class="btn btn-info btn-block max" href="#"><span class="glyphicon glyphicon-flash"></span> Quick 1k</a>
+    </div>
+    <div class="col-md-6">
+        <a class="btn btn-info btn-block max" href="@Url.Action("Deposit" ,"Transaction", new {checkingAcctid = ViewBag.CheckingId})"><span class="glyphicon glyphicon-arrow-up"></span> Deposit</a>
+        <a class="btn btn-info btn-block max" href="#"><span class="glyphicon glyphicon-user"></span> Change Pin</a>
+        <a class="btn btn-info btn-block max" href="#"><span class="glyphicon glyphicon-info-sign"></span> Inquiry</a>
+    </div>
+   
+</div>
