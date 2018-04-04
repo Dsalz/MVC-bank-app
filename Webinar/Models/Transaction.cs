@@ -10,7 +10,7 @@ namespace Webinar.Models
     { 
 
         public int Id { get; set; }
-        public decimal Amount { get; set; }
+        public double Amount { get; set; }
 
         [Required]
         public int CheckingAcctId { get; set; }

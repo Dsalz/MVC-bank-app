@@ -1,0 +1,34 @@
+﻿@model Webinar.Models.Transaction
+
+@{
+    ViewBag.Title = "Balance";
+}
+
+<h2>Balance</h2>
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+    <h4>Transaction</h4>
+    <hr/>
+
+        <dl class="dl-horizontal">
+            <dt>
+                <p>
+                    Your Account Balance is :
+                </p>
+            </dt>
+
+            <dd>
+                <em>
+                    @ViewBag.Balance
+                </em>
+            </dd>
+
+        </dl>
+    </div>
+</div>
+<p>
+    <button class="btn btn-info" type="button"><a href="@Html.ActionLink("Back to Home","Index","Home")" style="color: white"> </a>  </button>
+                                                   
+       
+</p>

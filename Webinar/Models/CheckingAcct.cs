@@ -29,7 +29,7 @@ namespace Webinar.Models
         }
 
       
-
+        [Required]
         public virtual ApplicationUser User { get; set; }
         
         

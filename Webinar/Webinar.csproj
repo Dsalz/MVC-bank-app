@@ -268,6 +268,8 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Transaction\Deposit.cshtml" />
+    <Content Include="Views\Transaction\Withdrawal.cshtml" />
+    <Content Include="Views\Transaction\Balance.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
