@@ -8,13 +8,17 @@
 
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
-    <h4>Transaction</h4>
+    
     <hr/>
 
         <p>Your Account Balance is :<em>@ViewBag.Balance</em> </p>        
-                
-               
-         
+     
+        @if (ViewBag.Balance < 1000)
+        {
+            <p>Broke Boys doing nonsense</p>
+        }
+
+
     </div>
 </div>
 <p>

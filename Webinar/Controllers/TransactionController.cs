@@ -51,18 +51,20 @@ namespace Webinar.Controllers
         {
             if (ModelState.IsValid)
             {
-                var amtwithdrawed = transaction.Amount * -1;
-                transaction.Amount = amtwithdrawed;
-                db.Transactions.Add(transaction);
-                db.SaveChanges();
-
-
                 var checking = db.CheckingAccts.Where(c => c.Id == transaction.CheckingAcctId).First();
-                checking.Balance = db.Transactions.Where(c => c.CheckingAcctId == transaction.CheckingAcctId)
-                    .Sum(c => c.Amount);
-                if (checking.Balance > 0)
+                
+                if (transaction.Amount <= checking.Balance)
                 {
+
+                    var amtwithdrawed = transaction.Amount * -1;
+                    transaction.Amount = amtwithdrawed;
+                    db.Transactions.Add(transaction);
                     db.SaveChanges();
+
+                    checking.Balance = db.Transactions.Where(c => c.CheckingAcctId == transaction.CheckingAcctId)
+                        .Sum(c => c.Amount);
+                    db.SaveChanges();
+;
                     return RedirectToAction("Index", "Home");
                 }
                 else
