@@ -7,28 +7,18 @@
 <h2>Balance</h2>
 
 <div class="row">
-    <div class="col-md-6 col-md-offset-3">
+    <div class="col-md-8 col-md-offset-2">
     <h4>Transaction</h4>
     <hr/>
 
-        <dl class="dl-horizontal">
-            <dt>
-                <p>
-                    Your Account Balance is :
-                </p>
-            </dt>
-
-            <dd>
-                <em>
-                    @ViewBag.Balance
-                </em>
-            </dd>
-
-        </dl>
+        <p>Your Account Balance is :<em>@ViewBag.Balance</em> </p>        
+                
+               
+         
     </div>
 </div>
 <p>
-    <button class="btn btn-info" type="button"><a href="@Html.ActionLink("Back to Home","Index","Home")" style="color: white"> </a>  </button>
+    <button type="button" style="color: white" class="btn btn-info"> @Html.ActionLink("Back to Home","Index","Home") </button> 
                                                    
        
 </p>

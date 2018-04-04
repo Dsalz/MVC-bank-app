@@ -13,20 +13,26 @@ namespace Webinar.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-       public ActionResult Index()
-       {
-           if (Request.IsAuthenticated)
-           {
-               var userid = User.Identity.GetUserId();
-               var check = db.CheckingAccts.Where(c => c.ApplicationUserId == userid).First().Id;
-               ViewBag.CheckingId = check;
-
-           }
-
-            return View();
-        }
-
+              
         
+            
+            public ActionResult Index()
+            {
+                if (Request.IsAuthenticated)
+                {
+                    var userid = User.Identity.GetUserId();
+                    var check = db.CheckingAccts.Where(c => c.ApplicationUserId == userid).First().Id;
+                    ViewBag.CheckingId = check;
+
+                    return View("Dashboard");
+
+                }
+
+                return View();
+            }
+        
+
+
 
         public ActionResult About()
         {

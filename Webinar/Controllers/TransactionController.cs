@@ -28,8 +28,6 @@ namespace Webinar.Controllers
                 db.Transactions.Add(transaction);
                 db.SaveChanges();
 
-               
-
                 var checking = db.CheckingAccts.Where(c=> c.Id == transaction.CheckingAcctId).First();
                 checking.Balance = db.Transactions.Where(c => c.CheckingAcctId == transaction.CheckingAcctId)
                     .Sum(c => c.Amount);
@@ -53,9 +51,8 @@ namespace Webinar.Controllers
         {
             if (ModelState.IsValid)
             {
-                var withdrawal = transaction.Amount * -1;
-
-                transaction.Amount = withdrawal;
+                var amtwithdrawed = transaction.Amount * -1;
+                transaction.Amount = amtwithdrawed;
                 db.Transactions.Add(transaction);
                 db.SaveChanges();
 
@@ -63,8 +60,16 @@ namespace Webinar.Controllers
                 var checking = db.CheckingAccts.Where(c => c.Id == transaction.CheckingAcctId).First();
                 checking.Balance = db.Transactions.Where(c => c.CheckingAcctId == transaction.CheckingAcctId)
                     .Sum(c => c.Amount);
-                db.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                if (checking.Balance > 0)
+                {
+                    db.SaveChanges();
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ViewBag.LowBalance = "Your account is too low for this transaction";
+                    return View();
+                }
             }
 
             return View();

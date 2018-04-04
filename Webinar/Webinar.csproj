@@ -200,6 +200,14 @@
     <Compile Include="Migrations\201804031212266_bingo.Designer.cs">
       <DependentUpon>201804031212266_bingo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804041122463_Blake.cs" />
+    <Compile Include="Migrations\201804041122463_Blake.Designer.cs">
+      <DependentUpon>201804041122463_Blake.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804041131474_Bonjovi.cs" />
+    <Compile Include="Migrations\201804041131474_Bonjovi.Designer.cs">
+      <DependentUpon>201804041131474_Bonjovi.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CheckingAcct.cs" />
@@ -270,6 +278,7 @@
     <Content Include="Views\Transaction\Deposit.cshtml" />
     <Content Include="Views\Transaction\Withdrawal.cshtml" />
     <Content Include="Views\Transaction\Balance.cshtml" />
+    <Content Include="Views\Home\Dashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -290,6 +299,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201804031212266_bingo.resx">
       <DependentUpon>201804031212266_bingo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804041122463_Blake.resx">
+      <DependentUpon>201804041122463_Blake.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804041131474_Bonjovi.resx">
+      <DependentUpon>201804041131474_Bonjovi.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

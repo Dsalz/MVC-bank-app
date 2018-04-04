@@ -15,7 +15,7 @@ namespace Webinar.Service_Models
             db = Db;
         }
 
-        public void NewCheckingAcct(string firstname, string lastname, double balance, string id)
+        public void NewCheckingAcct(string firstname, string lastname, decimal balance, string id)
         {
             var acctno = ((123456 + db.CheckingAccts.Count()).ToString().PadRight(10, '0'));
             var checkingacct = new CheckingAcct

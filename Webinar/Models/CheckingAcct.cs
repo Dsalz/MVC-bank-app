@@ -14,8 +14,9 @@ namespace Webinar.Models
         public string FirstName { get; set; }
         [Required]
         public string LastName { get; set; }
+
         [DataType(DataType.Currency)]
-        public double Balance { get; set; }
+        public decimal Balance { get; set; }
 
         [Display (Name = "Account #")]
         [StringLength(10)]
@@ -29,10 +30,10 @@ namespace Webinar.Models
         }
 
       
-        [Required]
+        
         public virtual ApplicationUser User { get; set; }
         
-        
+        [Required]
         public string ApplicationUserId { get; set; }
 
        public virtual ICollection<Transaction> Transactions { get; set; }
