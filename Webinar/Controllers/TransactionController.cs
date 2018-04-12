@@ -61,8 +61,10 @@ namespace Webinar.Controllers
                     db.Transactions.Add(transaction);
                     db.SaveChanges();
 
-                    checking.Balance = db.Transactions.Where(c => c.CheckingAcctId == transaction.CheckingAcctId)
+                    var totaltransactions = db.Transactions.Where(c => c.CheckingAcctId == transaction.CheckingAcctId)
                         .Sum(c => c.Amount);
+
+                    checking.Balance += totaltransactions;
                     db.SaveChanges();
 ;
                     return RedirectToAction("Index", "Home");
@@ -85,6 +87,8 @@ namespace Webinar.Controllers
 
             return View();
         }
+
+      
 
     } 
 }

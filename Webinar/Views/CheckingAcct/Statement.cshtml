@@ -1,0 +1,99 @@
+﻿@using Newtonsoft.Json
+@model IEnumerable<Webinar.Models.Transaction>
+
+@{
+    ViewBag.Title = "Statement";
+}
+
+<h2>Statement of Account</h2>
+
+
+<table class="table table-bordered table-striped table-hover">
+    <thead>
+        <tr>
+            <td>
+                <strong>
+                      Transaction ID
+                </strong>
+            </td>
+            <td>
+                <strong>
+                    Amount
+                </strong>
+            </td>
+        </tr>
+    </thead>
+
+
+    <tbody data-bind="foreach:CurrentPageIndex">
+        <tr>
+            <td data-bind="text:Id"></td>
+
+            <td data-bind="text:formattedPrice(Amount)"></td>
+
+        </tr>
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <td colspan="2">
+                <span class="glyphicon glyphicon-chevron-left" data-bind="click:prevpage,  visible: CurrentPage() > 1" style="cursor:pointer"></span>
+                <span data-bind="text:CurrentPage"></span>
+                <span class="glyphicon glyphicon-chevron-right" data-bind="click:nextpage,  visible: CurrentPage() < lastpage" style="cursor:pointer"></span>
+            </td>
+        </tr>
+    </tfoot>
+</table>
+
+
+
+
+@section scripts{
+
+    <script src="~/Scripts/knockout-3.4.2.js"></script>
+    <script>
+        function formattedPrice(amount) {
+            var price = amount.toFixed(2);
+            return price;
+        }
+
+        function StatementViewModel() {
+            var self = this;
+            self.transactions = @Html.Raw(JsonConvert.SerializeObject(Model, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore }));
+            self.pagesize = 5;
+            self.lastpage = Math.ceil(self.transactions.length / self.pagesize);
+            self.CurrentPage = ko.observable(1);
+            self.CurrentPageIndex = ko.computed(function () {
+                startIndex = (self.CurrentPage() - 1) * self.pagesize;
+                endIndex = startIndex + self.pagesize;
+               return self.transactions.slice(startIndex, endIndex);
+
+            });
+
+
+            self.nextpage = function () {
+                self.CurrentPage(self.CurrentPage() + 1);
+            };
+
+            self.prevpage = function () {
+                self.CurrentPage(self.CurrentPage() - 1);
+            };
+
+
+        };
+
+
+        ko.applyBindings( new StatementViewModel());
+
+
+
+
+
+    </script>
+
+
+
+
+}
+
+

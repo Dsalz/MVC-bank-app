@@ -1,4 +1,5 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "Contact";
 }
 <h2>@ViewBag.Title.</h2>
@@ -15,3 +16,69 @@
     <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
     <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
 </address>
+
+
+
+<div id="contactForm">
+   
+    <form id="tellusform" method="post">
+        <textarea name="message" id="message" data-bind="value:message, valueUpdate:'input'" maxlength="150"></textarea><br />
+        <button type="submit" class="btn btn-info"> Tell Us! </button><br />
+        <span data-bind="text:charactersRemaining"></span> characters left!
+    </form>
+
+    <img src="~/Content/Images/Bars-1s-200px.gif" id="loadinggif" style="display: none" />
+
+</div>
+
+
+
+@section scripts
+{
+<script src="~/Scripts/knockout-3.4.2.js"></script>
+
+  <script>
+      
+      function ContactViewModel()
+      {
+          var self = this;
+          self.message = ko.observable('');
+          self.charactersRemaining = ko.computed(function () {
+              return 150 - self.message().length;
+          }) 
+      }
+
+      ko.applyBindings(new ContactViewModel());
+
+    </script>
+
+    <script>
+        $('#tellusform').submit(function() {
+            $('#loadinggif').show();
+            $.post('', { message: $('#message').val() })
+                .done(function(response) {
+                    setTimeout(function () { $('#contactForm').html(response); }, 2000);
+                });
+
+            return false;
+        });
+
+    </script>
+}
+
+
+
+
+
+@*
+<div class="bingo>
+    @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "post", InsertionMode = InsertionMode.Replace, UpdateTargetId = "bingo" }))
+    {
+        <textarea name="message"></textarea>
+        <input type="submit" value="Tell us!" />
+    }
+
+
+</div>
+*@
+

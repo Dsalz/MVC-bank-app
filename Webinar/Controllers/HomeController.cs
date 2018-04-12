@@ -47,5 +47,14 @@ namespace Webinar.Controllers
 
             return View();
         }
+
+        [HttpPost]
+        public ActionResult Contact(string message)
+        {
+            ViewBag.Reply = "Thanks for the gist!";
+            return PartialView("_ContactYarn");
+        
+
+        }
     }
 }

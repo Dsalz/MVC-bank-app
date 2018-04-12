@@ -1,7 +1,6 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
-    background-image: 
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -31,3 +30,15 @@ textarea {
 .inline {
     display: inline;
 }
+
+
+#intro {
+    background-image: url('Images/u-jpg-36985106116713461.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding : 200px;
+    color: black;
+    text-align: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
