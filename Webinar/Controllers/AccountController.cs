@@ -13,7 +13,7 @@ using Webinar.Service_Models;
 
 namespace Webinar.Controllers
 {
-    [Authorize]
+    
     
     public class AccountController : Controller
     {
@@ -85,6 +85,7 @@ namespace Webinar.Controllers
             {
                 case SignInStatus.Success:
                     return RedirectToLocal(returnUrl);
+                //return View("Dashboard" , "Home");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -164,21 +165,27 @@ namespace Webinar.Controllers
                     UserManager.AddClaim(user.Id, new Claim(ClaimTypes.GivenName, model.FirstName));
                     var checkAcct = new CheckingAcctService(HttpContext.GetOwinContext().Get<ApplicationDbContext>());
                     checkAcct.NewCheckingAcct(model.FirstName, model.LastName, 0, user.Id);
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    //await UserManager.SendEmailAsync(user.Id, "Confirm your account", callbackUrl);
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("ValidateEmail");
                 }
                 AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        public ActionResult ValidateEmail()
+        {
+            return View();
         }
 
         //

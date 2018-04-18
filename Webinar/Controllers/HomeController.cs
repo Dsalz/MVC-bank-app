@@ -20,21 +20,29 @@ namespace Webinar.Controllers
             {
                 if (Request.IsAuthenticated)
                 {
-                    var userid = User.Identity.GetUserId();
-                    var check = db.CheckingAccts.Where(c => c.ApplicationUserId == userid).First().Id;
-                    ViewBag.CheckingId = check;
-
-                    return View("Dashboard");
+                return RedirectToAction("Dashboard");
 
                 }
 
                 return View();
-            }
+        }
         
+       
+        [Authorize]
+        public ActionResult Dashboard()
+        {
+            var userid = User.Identity.GetUserId();
+            var check = db.CheckingAccts.Where(c => c.ApplicationUserId == userid).First().Id;
+            ViewBag.CheckingId = check;
+
+            return View();
+
+        }
 
 
 
-        public ActionResult About()
+
+    public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
 
