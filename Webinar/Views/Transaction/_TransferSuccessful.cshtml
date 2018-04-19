@@ -1,0 +1,6 @@
+﻿
+<h3>Your transfer to @ViewBag.Recepient was succesful and your balance is now @ViewBag.Balance!</h3><br />
+
+
+
+<p>Would you like to make another Transfer? <a class="btn btn-info" href="@Url.Action("TransferFunds" , "Transaction" , new {checkingAcctId = ViewBag.CheckingAcctId })">Yes</a> <a class="btn btn-info" href="@Url.Action("Dashboard" , "Home")">No</a> </p>

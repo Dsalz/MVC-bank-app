@@ -1,19 +1,14 @@
 ﻿@model Webinar.Models.Transaction
 
-@{
-    ViewBag.Title = "Deposit";
-}
 
-
-
-
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("TransferFunds", "Transaction", FormMethod.Post, new { id = "transferfundsform" }))
 {
-    @Html.AntiForgeryToken()
     
+
+    @Html.AntiForgeryToken()
+
     <div class="form-horizontal">
-        <h4>Transaction</h4>
-        <hr />
+
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -24,17 +19,19 @@
         </div>
 
         <div class="form-group">
+            <div class="control-label col-md-2">
+                Account #
+            </div>
+            <div class="col-md-10">
+                <input type="text" name="acctno" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Deposit" class="btn btn-info" />
+                <input type="submit" value="Send" class="btn btn-info cancel" />
             </div>
         </div>
     </div>
 }
 
-<div>
-    <button class="btn btn-info" style="color: white"> @Html.ActionLink("Another Transaction ?", "Deposit", "Transaction", new { checkingId = ViewBag.CheckingId}, new { style = "color: white" }) </button>
-</div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

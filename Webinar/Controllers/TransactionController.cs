@@ -13,6 +13,7 @@ namespace Webinar.Controllers
     {
        
         private ApplicationDbContext db = new ApplicationDbContext();
+        
         // GET: Transaction
         public ActionResult Deposit(int checkingAcctId)
         {
@@ -61,10 +62,8 @@ namespace Webinar.Controllers
                     db.Transactions.Add(transaction);
                     db.SaveChanges();
 
-                    var totaltransactions = db.Transactions.Where(c => c.CheckingAcctId == transaction.CheckingAcctId)
-                        .Sum(c => c.Amount);
-
-                    checking.Balance += totaltransactions;
+                    checking.Balance = db.Transactions.Where(c => c.CheckingAcctId == transaction.CheckingAcctId)
+                    .Sum(c => c.Amount);
                     db.SaveChanges();
 ;
                     return RedirectToAction("Index", "Home");
@@ -88,7 +87,102 @@ namespace Webinar.Controllers
             return View();
         }
 
-      
+        public ActionResult TransferFunds(int checkingAcctId)
+        {
 
-    } 
+
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult TransferFunds(Transaction transaction, string acctno)
+        {
+            var sender = db.CheckingAccts.Where(c => c.Id == transaction.CheckingAcctId).First();
+
+            if (sender.Balance < transaction.Amount)
+            {
+                ModelState.AddModelError("Amount", "Your Account is too low for this transaction");
+                 return PartialView("_TransferFunds", transaction);
+                
+            }
+
+
+          
+
+            if(!db.CheckingAccts.Any(c => c.AccountNo == acctno))
+            {
+                ModelState.AddModelError("", "Invalid Destination Account #");
+                return PartialView("_TransferFunds", transaction);
+             
+            }
+
+
+            
+            
+                var recepient = db.CheckingAccts.Where(c => c.AccountNo == acctno).First();
+                //recepient.Transactions.Add(transaction);
+                //db.SaveChanges();
+                //recepient.Balance = recepient.Transactions.Sum(c => c.Amount);
+                //db.SaveChanges();
+
+                //transaction.Amount = -transaction.Amount;
+                //sender.Transactions.Add(transaction);
+                //db.SaveChanges();
+                //sender.Balance = sender.Transactions.Sum(c => c.Amount);
+                //db.SaveChanges();
+
+                var reci = new Transaction
+                {
+                    Id = recepient.Id,
+                    Amount = transaction.Amount,
+                    CheckingAcctId = recepient.Id
+                };
+
+                var send = new Transaction
+                {
+                    Id = sender.Id,
+                    Amount = -transaction.Amount,
+                    CheckingAcctId = sender.Id
+                };
+
+                db.Transactions.Add(reci);
+                db.Transactions.Add(send);
+                db.SaveChanges();
+
+
+
+            sender.Balance = db.Transactions.Where(c => c.CheckingAcctId == transaction.CheckingAcctId).Sum(c=>c.Amount);
+                db.SaveChanges();
+
+            var nullid = (int?)recepient.Id;
+                recepient.Balance = db.Transactions.Where(c=> c.CheckingAcctId== nullid).Sum(c => c.Amount);
+                db.SaveChanges();
+
+                //Withdrawal(transaction);
+
+
+
+
+                //sender.Balance -= transaction.Amount;
+                //recepient.Balance += transaction.Amount;
+
+                var uzer = User.Identity.GetUserId();
+
+                ViewBag.Recepient = recepient.AccountNo;
+                ViewBag.Balance = sender.Balance;
+                ViewBag.CheckingAcctId = db.CheckingAccts.Where(c => c.ApplicationUserId == uzer).First().Id;
+
+                return PartialView("_TransferSuccessful");
+
+            
+
+
+
+
+         
+        }
+
+
+    }
 }

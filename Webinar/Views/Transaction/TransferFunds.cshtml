@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "TransferFunds";
+}
+
+<h2>Transfer Funds</h2>
+<hr />
+
+@Html.Partial("_TransferFunds")
+
+
+
+
+@section scripts{
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+    <script>
+        $(document).on("submit", "#transferfundsform", function () {
+            var $daform = $(this);
+
+            if ($daform.valid()) {
+                $.post('', $daform.serialize()).done(function (response) {
+                    $daform.replaceWith(response);
+                });
+            }
+
+            return false
+        });
+
+    </script>
+
+
+
+
+}

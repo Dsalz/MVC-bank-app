@@ -36,7 +36,7 @@
     </div>
     <div class="row">
         <div class="col-md-6">
-            <a class="btn btn-info btn-block max" href="#"><span class="glyphicon glyphicon-user"></span> Change Pin</a>
+            <a class="btn btn-info btn-block max" href="@Url.Action("TransferFunds" , "Transaction" , new {checkingAcctId = ViewBag.CheckingId })"><span class="glyphicon glyphicon-transfer"></span> Transfer Funds</a>
         </div>
         <div class="col-md-6">
             <a class="btn btn-info btn-block max" href="@Url.Action("Statement" , "CheckingAcct", new {Id = ViewBag.CheckingId})"><span class="glyphicon glyphicon-info-sign"></span> Statement</a>

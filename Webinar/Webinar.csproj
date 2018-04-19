@@ -292,6 +292,9 @@
     <Content Include="Views\Home\_ContactYarn.cshtml" />
     <Content Include="Views\CheckingAcct\Statement.cshtml" />
     <Content Include="Views\Account\ValidateEmail.cshtml" />
+    <Content Include="Views\Transaction\TransferFunds.cshtml" />
+    <Content Include="Views\Transaction\_TransferSuccessful.cshtml" />
+    <Content Include="Views\Transaction\_TransferFunds.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

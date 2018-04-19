@@ -45,6 +45,7 @@ textarea {
 
 .dashboard-nav{
    margin-top:250px;
+   
 }
 
 .navbar:hover {
@@ -62,3 +63,9 @@ textarea {
     padding:100px;
 }
 
+.footer{
+    padding-top:250px;
+    background-image:linear-gradient(90deg, black, black);
+    padding-left:15px;
+    margin-top: 150px;
+}
