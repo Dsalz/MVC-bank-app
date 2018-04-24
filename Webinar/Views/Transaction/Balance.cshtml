@@ -13,16 +13,11 @@
 
         <p>Your Account Balance is :<em>@ViewBag.Balance</em> </p>        
      
-        @if (ViewBag.Balance < 1000)
-        {
-            <p>Broke Boys doing nonsense</p>
-        }
-
-
+       
     </div>
 </div>
 <p>
-    <a style="color: white" class="btn btn-info"> @Html.ActionLink("Back to Home","Index","Home") </a> 
+    <a style="color: white" class="btn btn-info" href="@Url.Action("Index","Home")">Back to Home</a> 
                                                    
        
 </p>
