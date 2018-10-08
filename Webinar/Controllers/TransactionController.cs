@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Webinar.Models;
 
+[assembly: log4net.Config.XmlConfigurator(Watch = true)]
+
 namespace Webinar.Controllers
 {
     [Authorize]
@@ -13,7 +15,10 @@ namespace Webinar.Controllers
     {
        
         private ApplicationDbContext db = new ApplicationDbContext();
-        
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+
+
         // GET: Transaction
         public ActionResult Deposit(int checkingAcctId)
         {
@@ -81,10 +86,21 @@ namespace Webinar.Controllers
 
         public ActionResult Balance(int checkingAcctId)
         {
-            var balance = db.CheckingAccts.Where(c => c.Id == checkingAcctId).First().Balance;
-            ViewBag.Balance = balance;
+            var trueuserid = User.Identity.GetUserId();
+            var trueuser = db.CheckingAccts.Where(c => c.ApplicationUserId == trueuserid).First();
+            var trueusername = trueuser.Name;
 
-            return View();
+            if (checkingAcctId == trueuser.Id)
+            {
+                var balance = db.CheckingAccts.Where(c => c.Id == checkingAcctId).First().Balance;
+                var infolog = trueusername + " checked their balance";
+                log.Info(infolog);
+                ViewBag.Balance = balance;
+
+                return View();
+            }
+
+            return RedirectToAction("Dashboard", "Home");
         }
 
         public ActionResult TransferFunds(int checkingAcctId)
